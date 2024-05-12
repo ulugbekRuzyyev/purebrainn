@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="purebrain.png" type="image/x-icon" />
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="anasayfa.html"><img src="purebrain.png"></a>
+
+        <a href="hakkında.html" id="nav-links">ABOUT US</a>
+        <a href="iletişim.html" id="nav-links">CONTACT</a>
+        <a href="todolist.html" id="nav-links">TO-DO LIST</a>
+        <a href="giris.html" id="nav-links">LOG-IN</a>
+    </div>
+
+
+    <div class="todolist">
+        <div id="myDIV" class="headerr">
+            <h2>Tasks</h2>
+            <input type="text " id="myInput" placeholder="Add a task... ">
+            <button onclick="newElement()" id="addBtn">Add</button>
+        </div>
+
+        <ul id="myUL">
+            <li class="todo checked">Pay bills</li>
+            <li class="todo">Hit the gym</li>
+
+            <li class="todo">Meet George</li>
+        </ul>
+    </div>
+
+
+    <div class="footer ">
+        <p>&copy; 2024 PureBrain INC. All rights reserved.</p>
+    </div>
+
+    <script>
+        /*listenin her bir elemanına kapatma butonu ekleme*/
+        var myNodelist = document.getElementsByClassName("todo");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+        /*kapatma butonuna tıklayınca listenin elemanını silme*/
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+        /*liste elemanına tıklandığında işaretli hale getirme*/
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function(ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+        /*listeye yeni eleman ekleme*/
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("myInput").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === '') {
+                alert("You must write something..!");
+            } else {
+                document.getElementById("myUL").appendChild(li);
+            }
+            document.getElementById("myInput").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
